@@ -113,8 +113,48 @@
             $this->probabiliteSpecialAttack = $probabiliteSpecialAttack;
         }
     }
+    class PokemonFeu extends Pokemon {
 
+        public function attack($p){
+            if ($p instanceof PokemonPlante){
+                return 2*parent::attack($p);
+            }
+            elseif ($p instanceof PokemonEau){
+                return 0.5*parent::attack($p);
+            }
+            else{
+                return parent::attack($p);
+            }
+        }
+    }
+    class PokemonEau extends Pokemon {
 
+        public function attack($p){
+            if ($p instanceof PokemonPlante){
+                return 0.5*parent::attack($p);
+            }
+            elseif ($p instanceof PokemonFeu){
+                return 2*parent::attack($p);
+        }
+        else{
+            return parent::attack($p);
+        }
+    }
+    }
+    class PokemonPlante extends Pokemon {
+
+        public function attack($p){
+            if ($p instanceof PokemonEau){
+                return 2*parent::attack($p);
+            }
+            elseif ($p instanceof PokemonFeu){
+                return 0.5*parent::attack($p);
+        }
+        else{
+            return parent::attack($p);
+        }
+    }
+    }
 
 
 ?>
