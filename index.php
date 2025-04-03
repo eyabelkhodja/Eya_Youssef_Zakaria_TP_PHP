@@ -25,12 +25,19 @@ $students = $statement->fetchAll(PDO::FETCH_ASSOC);
             <th>ID</th>
             <th>Nom</th>
             <th>Date de naissance</th>
+            <th>Détails</th>
         </tr>
         <?php foreach ($students as $student): ?>
             <tr>
                 <td><?= htmlspecialchars($student['id']) ?></td>
                 <td><?= htmlspecialchars($student['name']) ?></td>
                 <td><?= htmlspecialchars($student['birthday']) ?></td>
+                <td>
+                    <form action="detailEtudiant.php" method="POST">
+                        <input type="hidden" name="id" value="<?= htmlspecialchars($student['id']) ?>">
+                        <button type="submit" id="details"> 🛈 Détails</button>
+                    </form>
+                    </td>
             </tr>
         <?php endforeach; ?>
     </table>
