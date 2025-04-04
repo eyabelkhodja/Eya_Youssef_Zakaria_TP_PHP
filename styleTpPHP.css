@@ -1,11 +1,19 @@
 body {
     font-family: Arial, sans-serif;
     text-align: center;
-    background-color: #f9f9f9;
+    background: linear-gradient(135deg, #4a2bc849, #2574fc66, #25359f6d, #4a2bc849, #2574fc66, #25359f6d);
+}
+
+h1{
+    color:darkslategray;
+    font-weight: bold;
+    font-size: 5em;
+    text-align: center;
 }
 
 h2 {
     color: #333;
+    text-align: center;
 }
 
 table {
@@ -30,4 +38,52 @@ th {
 #details{
     color: cornflowerblue;
     font-weight: bold;
+}
+
+form{
+    color:mignightblue;
+    text-align: center;
+    margin: 20px auto;
+    padding: 20px;
+    font-size: 1.5em;
+}
+
+input{
+    padding: 10px;
+    margin: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1em;
+}
+
+.tab-bar {
+    background-color: #333;
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    padding: 10px 20px;
+}
+
+#sms {
+    color: white;
+    font-size: 1.5em;
+    margin-right: 20px;
+}
+
+.tabs {
+    display: flex;
+    gap: 30px; 
+}
+
+.tabs a {
+    color: white;
+    padding: 14px 20px;
+    text-decoration: none;
+    text-align: center;
+    font-size: 18px;
+    transition: 0.3s;
+}
+
+.tab-bar a.active {
+    background-color: #04AA6D;
 }
