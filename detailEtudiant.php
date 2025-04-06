@@ -7,7 +7,7 @@ if (!isset($_POST['id']) || !is_numeric($_POST['id'])) {
 
 $id = intval($_POST['id']);
 
-$statement = $pdo->prepare("SELECT * FROM student WHERE id = :id");
+$statement = $pdo->prepare("SELECT * FROM etudiant WHERE id = :id");
 $statement->execute(['id' => $id]);
 $student = $statement->fetch(PDO::FETCH_ASSOC);
 
@@ -30,10 +30,12 @@ if (!$student) {
 
     <h2 id="details">Détails de l'Étudiant</h2>
 
+    <p><strong>ID :</strong> <?= htmlspecialchars($student['id']) ?></p>
     <p><strong>Nom :</strong> <?= htmlspecialchars($student['name']) ?></p>
     <p><strong>Date de naissance :</strong> <?= htmlspecialchars($student['birthday']) ?></p>
+    <p><strong>Section :</strong> <?= htmlspecialchars($student['section']) ?></p>
 
-    <a href="index.php">⬅ Retour à la liste</a>
+    <a href="students.php">⬅ Retour à la liste</a>
 
 </body>
 
