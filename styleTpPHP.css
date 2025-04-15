@@ -1,14 +1,15 @@
 body {
     font-family: Arial, sans-serif;
     text-align: center;
-    background: linear-gradient(135deg, #4a2bc849, #2574fc66, #25359f6d, #4a2bc849, #2574fc66, #25359f6d);
+    background: linear-gradient(135deg, #4a2bc81f, #2574fc28, #3043bf42, #4a2bc836, #2574fc39, #25359f3d);
 }
 
-h1{
-    color:darkslategray;
+h1 {
+    color: darkslategray;
     font-weight: bold;
     font-size: 5em;
     text-align: center;
+    margin-top: 100px; 
 }
 
 h2 {
@@ -25,10 +26,35 @@ table {
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 
+#detail {
+    text-align: center;
+    display: table-cell;
+    vertical-align: middle;
+}
+
 th, td {
     border: 1px solid black;
     padding: 10px;
     text-align: center;
+}
+
+li {
+    list-style: none;
+    padding: 40px;
+    margin: 2px;
+    font-size: 2em;
+}
+
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 5px 0;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
 }
 
 th {
@@ -62,6 +88,9 @@ input{
     justify-content: space-between; 
     align-items: center;
     padding: 10px 20px;
+    top:0;
+    left: 0;
+    right: 0;
 }
 
 #sms {
