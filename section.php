@@ -1,9 +1,6 @@
 <?php
 session_start();
-
-$pdo = new PDO('mysql:host=localhost;dbname=student_db', 'root', '');
-$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
+require 'database.php';
 require_once 'tableClasses.php';
 
 $activeSectionId = null;
@@ -13,7 +10,7 @@ $sections = [];
 // ✅ Handle view_students POST action
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['view_students'], $_POST['section_id'])) {
     $activeSectionId = $_POST['section_id'];
-    $stmt = $pdo->prepare("SELECT * FROM etudiant WHERE section = ?");
+    $stmt = $pdo->prepare("SELECT id, name, birthday, section FROM etudiant WHERE section = ?");
     $stmt->execute([$activeSectionId]);
     $studentsData = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -22,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['view_students'], $_PO
             $student['id'],
             $student['name'],
             $student['birthday'],
-            $student['image'],
+            NULL,
             $student['section']
         );
     }
@@ -82,28 +79,34 @@ foreach ($sectionsData as $sectionData) {
                     <td><?= htmlspecialchars($section->getDesignation()) ?></td>
                     <td><?= htmlspecialchars($section->getDescription()) ?></td>
                     <td>
-                        <form method="post" action="">
+                        <form method="post" action="" style="display: inline;"></form>
                             <input type="hidden" name="section_id" value="<?= $section->getId() ?>">
-                            <button type="submit" name="view_students" class="btn btn-info btn-sm">View Students</button>
+                            <button type="submit" name="view_students" class="btn btn-info btn-sm">👁️</button>
+                        </form>
+                        <form method="post" action="addStudent.php" style="display: inline;">
+                            <input type="hidden" name="section_id" value="<?= $section->getId() ?>">
+                            <button type="submit" name="add_section" class="btn btn-success btn-sm">➕</button>
+                        </form>
+                        <form method="post" action="removeStudent.php" style="display: inline;">
+                            <input type="hidden" name="section_id" value="<?= $section->getId() ?>">
+                            <button type="submit" name="remove_section" class="btn btn-danger btn-sm">❌</button>
                         </form>
                     </td>
                 </tr>
 
                 <?php if ($activeSectionId == $section->getId()): ?>
-                    <tr class="student-display-row">
-                        <td colspan="4">
-                            <strong>Students in Section <?= htmlspecialchars($section->getDesignation()) ?>:</strong>
-                            <?php if (!empty($studentsBySection)): ?>
-                                <ul>
-                                    <?php foreach ($studentsBySection as $student): ?>
-                                        <li><?= htmlspecialchars($student->getName()) ?> (ID: <?= htmlspecialchars($student->getId()) ?>)</li>
-                                    <?php endforeach; ?>
-                                </ul>
-                            <?php else: ?>
-                                <p>No students found in this section.</p>
-                            <?php endif; ?>
-                        </td>
-                    </tr>
+                    <?php if (!empty($studentsBySection)): ?>
+                        <?php foreach ($studentsBySection as $student): ?>
+                            <tr class="student-display-row">
+                                <td><?= htmlspecialchars($student->getId()) ?></td>
+                                <td colspan="3"><?= htmlspecialchars($student->getName()) ?> (Birthday: <?= htmlspecialchars($student->getBirthday()) ?>)</td>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <tr class="student-display-row">
+                            <td colspan="4">No students found in this section.</td>
+                        </tr>
+                    <?php endif; ?>
                 <?php endif; ?>
             <?php endforeach; ?>
             </tbody>
