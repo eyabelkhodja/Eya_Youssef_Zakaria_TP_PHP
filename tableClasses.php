@@ -111,4 +111,57 @@ class section{
         $this->description = $description;
     }
 }
+abstract class Repository {
+    protected $data = [];
+    protected $filename;
+
+    public function __construct($filename) {
+        $this->filename = $filename;
+        if (file_exists($filename)) {
+            $this->data = json_decode(file_get_contents($filename), true);
+        }
+    }
+
+    public function findAll() {
+        return $this->data;
+    }
+
+    public function findById($id) {
+        foreach ($this->data as $item) {
+            if ($item['id'] == $id) {
+                return $item;
+            }
+        }
+        return null;
+    }
+
+    public function create($record) {
+        $record['id'] = $this->generateId();
+        $this->data[] = $record;
+        $this->save();
+        return $record;
+    }
+
+    public function delete($id) {
+        foreach ($this->data as $index => $item) {
+            if ($item['id'] == $id) {
+                unset($this->data[$index]);
+                $this->data = array_values($this->data); // réindexation
+                $this->save();
+                return true;
+            }
+        }
+        return false;
+    }
+
+    protected function save() {
+        file_put_contents($this->filename, json_encode($this->data, JSON_PRETTY_PRINT));
+    }
+
+    protected function generateId() {
+        $ids = array_column($this->data, 'id');
+        return empty($ids) ? 1 : max($ids) + 1;
+    }
+}
+
 ?>

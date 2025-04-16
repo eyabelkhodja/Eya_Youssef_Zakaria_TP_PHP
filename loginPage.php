@@ -15,9 +15,15 @@ require 'database.php';
     <div class="tab-bar">
         <label id="sms">Students Management System</label>
         <div class="tabs">
+<<<<<<< HEAD
+        <a href="loginPage.php">Home</a>
+        <a href="loginPage.php">Students</a>
+        <a href="loginPage.php">Sections</a>
+=======
         <a href="homePage.php">Home</a>
         <a href="students.php">Students</a>
         <a href="sections.php">Sections</a>
+>>>>>>> main
         <a href="loginPage.php">Logout</a>
     </div>
 </div>
